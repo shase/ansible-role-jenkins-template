@@ -1,1 +1,16 @@
-# tasks file can include smaller files if warranted
+- name: add apt key
+  apt_key:
+    url: https://pkg.jenkins.io/debian/jenkins-ci.org.key
+    state: present
+
+- name: add apt repository
+  apt_repository:
+    repo: deb http://pkg.jenkins.io/debian-stable binary/
+    state: present
+    update_cache: yes
+
+- name: install jenkins
+  apt:
+    name: jenkins={{ jenkins.version }}
+    state: present
+
