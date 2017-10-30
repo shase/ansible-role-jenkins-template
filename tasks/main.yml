@@ -14,3 +14,23 @@
     name: jenkins={{ jenkins.version }}
     state: present
 
+- name: copy jenkins default
+  template:
+    src: etc/default/jenkins.j2
+    dest: /etc/default/jenkins
+    owner: jenkins
+    group: jenkins
+    mode: '0755'
+
+- name: copy config.xml
+  template:
+    src: var/lib/jenkins/config.xml.j2
+    dest: /var/lib/jenkins/config.xml
+    owner: jenkins
+    group: jenkins
+    mode: '0755'
+
+- name: jenkins restart
+  service:
+    name: jenkins
+    state: restarted
